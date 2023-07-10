@@ -1,0 +1,36 @@
+function findUniqueCharacter(text) {
+    // Функція для знаходження першого унікального символу в рядку
+    function findFirstUniqueCharacter(str) {
+        let charCount = {};
+        for (let char of str) {
+            charCount[char] = charCount[char] + 1 || 1;
+        }
+        for (let char of str) {
+            if (charCount[char] === 1) {
+                return char;
+            }
+        }
+        return null;
+    }
+
+    // Розбиваємо текст на окремі слова
+    let words = text.split(" ");
+
+    // Знаходимо перші унікальні символи для кожного слова
+    let uniqueChars = words.map(findFirstUniqueCharacter);
+
+    // Знаходимо перший унікальний символ зі всіх отриманих
+    for (let char of uniqueChars) {
+        if (uniqueChars.indexOf(char) === uniqueChars.lastIndexOf(char)) {
+            return char;
+        }
+    }
+
+    return null; // Якщо немає унікальних символів
+}
+
+let text = `C makes it easy for you to shoot yourself in the foot. C++ makes that harder, but when you do, it blows away your whole leg. (с) Bjarne Stroustrup`;
+
+let result = findUniqueCharacter(text);
+console.log(result);
+
